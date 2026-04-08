@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "cjm-fasthtml-workflow-session-management"
+  site-url: "https://cj-mills.github.io/cjm-fasthtml-workflow-session-management"
+  description: "A workflow-agnostic FastHTML library for managing multiple in-progress workflow sessions with list, resume, create, delete, and rename sessions stored in a cjm-workflow-state state database."
+  repo-branch: main
+  repo-url: "https://github.com/cj-mills/cjm-fasthtml-workflow-session-management"
