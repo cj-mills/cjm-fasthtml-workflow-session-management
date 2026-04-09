@@ -14,7 +14,7 @@ pip install cjm_fasthtml_workflow_session_management
     nbs/
     ├── components/ (3)
     │   ├── helpers.ipynb        # Shared rendering helpers for the workflow session management interface.
-    │   ├── page_renderer.ipynb  # Full session management page assembly — header with title + cross-management tabs, and the session list body.
+    │   ├── page_renderer.ipynb  # Full session management page assembly — header with title and the session list body.
     │   └── session_list.ipynb   # Session list component with virtual collection integration, keyboard navigation, and action modals.
     ├── routes/ (2)
     │   ├── init.ipynb      # Top-level router assembly for the session management library.
@@ -41,23 +41,23 @@ graph LR
     services_management[services.management<br/>services.management]
     utils[utils<br/>utils]
 
+    components_page_renderer --> components_helpers
     components_page_renderer --> html_ids
     components_page_renderer --> models
-    components_page_renderer --> components_helpers
     components_session_list --> models
     components_session_list --> components_helpers
-    components_session_list --> html_ids
     components_session_list --> utils
-    routes_init --> models
-    routes_init --> components_page_renderer
-    routes_init --> services_management
-    routes_init --> html_ids
+    components_session_list --> html_ids
     routes_init --> components_session_list
     routes_init --> routes_sessions
-    routes_sessions --> services_management
+    routes_init --> services_management
+    routes_init --> models
+    routes_init --> components_page_renderer
+    routes_init --> html_ids
     routes_sessions --> models
-    services_management --> utils
+    routes_sessions --> services_management
     services_management --> models
+    services_management --> utils
 ```
 
 *17 cross-module dependencies detected*
@@ -85,8 +85,7 @@ from cjm_fasthtml_workflow_session_management.components.helpers import (
     render_alert,
     render_delete_modal,
     render_empty_state,
-    render_active_session_badge,
-    render_management_tabs
+    render_active_session_badge
 )
 ```
 
@@ -151,14 +150,6 @@ def render_active_session_badge(
     "Render the "Active" indicator badge for the currently active session row."
 ```
 
-``` python
-def render_management_tabs(
-    active:str, # Key of the currently-active tab
-    entries:List[tuple], # List of (key, label, icon_name, url) tuples
-) -> Any: # Div containing the tab row
-    "Render a row of anchor-link tabs for cross-management page navigation."
-```
-
 #### Variables
 
 ``` python
@@ -212,7 +203,6 @@ def init_session_manager_routers(
     get_step_title:Optional[Callable[[str], str]]=None, # Optional step ID -> human title mapper
     page_title:str="Sessions", # Page header title
     page_icon:str="layers", # Lucide icon for the page header
-    tab_entries:Optional[List[Tuple[str, str, str, str]]]=None, # Cross-management tab entries
 ) -> SessionManagementResult: # Assembled result with routers, urls, and render callables
     "Initialize all session management routers with virtual collection integration."
 ```
@@ -398,8 +388,8 @@ class SessionManagementResult:
 
 ### components.page_renderer (`page_renderer.ipynb`)
 
-> Full session management page assembly — header with title +
-> cross-management tabs, and the session list body.
+> Full session management page assembly — header with title and the
+> session list body.
 
 #### Import
 
@@ -416,10 +406,8 @@ from cjm_fasthtml_workflow_session_management.components.page_renderer import (
 def render_page_header(
     title:str="Sessions", # Page title
     icon_name:str="layers", # Lucide icon for the title
-    tab_entries:Optional[List[Tuple[str, str, str, str]]]=None, # Optional (key, label, icon, url) for cross-mgmt tabs
-    active_tab:str="sessions", # Key of the currently active tab
 ) -> Any: # Header element
-    "Render the page header with title and optional cross-management tab navigation."
+    "Render the page header with an icon + title."
 ```
 
 ``` python
@@ -428,8 +416,6 @@ def render_session_manager_page(
     render_list_fn:Callable, # () -> session list component
     title:str="Sessions", # Page title
     icon_name:str="layers", # Lucide icon name for the title
-    tab_entries:Optional[List[Tuple[str, str, str, str]]]=None, # Cross-management tabs
-    active_tab:str="sessions", # Currently active tab key
 ) -> Any: # Complete session manager page component
     "Render the complete session manager page with header and session list."
 ```

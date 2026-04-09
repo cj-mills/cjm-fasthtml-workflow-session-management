@@ -4,12 +4,12 @@
 
 # %% auto #0
 __all__ = ['DEBUG_SESSION_RENDER', 'render_section_header', 'render_icon_button', 'render_alert', 'render_delete_modal',
-           'render_empty_state', 'render_active_session_badge', 'render_management_tabs']
+           'render_empty_state', 'render_active_session_badge']
 
 # %% ../../nbs/components/helpers.ipynb #82d4c88f
 from typing import Any, Dict, List, Optional
 
-from fasthtml.common import Div, Span, H3, Button, Form, P, Dialog, Input, A
+from fasthtml.common import Div, Span, H3, Button, Form, P, Dialog, Input
 
 # DaisyUI components
 from cjm_fasthtml_daisyui.components.actions.button import (
@@ -21,9 +21,6 @@ from cjm_fasthtml_daisyui.components.data_display.badge import (
 from cjm_fasthtml_daisyui.components.feedback.alert import alert, alert_colors
 from cjm_fasthtml_daisyui.components.actions.modal import (
     modal, modal_box, modal_action, modal_backdrop
-)
-from cjm_fasthtml_daisyui.components.navigation.tabs import (
-    tabs, tab, tabs_styles, tabs_sizes
 )
 from cjm_fasthtml_daisyui.utilities.semantic_colors import text_dui
 
@@ -171,29 +168,4 @@ def render_active_session_badge(
         lucide_icon("circle-dot", size=3),
         label,
         **kwargs
-    )
-
-# %% ../../nbs/components/helpers.ipynb #3916050e
-def render_management_tabs(
-    active:str, # Key of the currently-active tab
-    entries:List[tuple], # List of (key, label, icon_name, url) tuples
-) -> Any: # Div containing the tab row
-    """Render a row of anchor-link tabs for cross-management page navigation."""
-    tab_children = []
-    for key, label, icon_name, url in entries:
-        tab_cls = combine_classes(tab, flex_display, items.center, gap(2))
-        if key == active:
-            tab_cls = f"{tab_cls} tab-active"
-        tab_children.append(
-            A(
-                lucide_icon(icon_name, size=4),
-                label,
-                href=url,
-                cls=tab_cls,
-            )
-        )
-    return Div(
-        *tab_children,
-        role="tablist",
-        cls=combine_classes(tabs, tabs_styles.lift, tabs_sizes.md),
     )

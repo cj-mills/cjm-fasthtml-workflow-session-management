@@ -176,9 +176,6 @@ def main():
         get_step_title=lambda sid: STEP_TITLES.get(sid, sid),
         page_title="Workflow Sessions",
         page_icon="layers",
-        tab_entries=[
-            ("sessions", "Sessions", "layers", "/manage/sessions/management_page"),
-        ],
     )
 
     print(f"\n[Session Manager URLs]")

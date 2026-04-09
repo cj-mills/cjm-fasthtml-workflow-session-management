@@ -6,10 +6,9 @@
 __all__ = ['init_session_manager_routers']
 
 # %% ../../nbs/routes/init.ipynb #4bea5890
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional
 
-from fasthtml.common import Script
-from cjm_fasthtml_interactions.core.state_store import get_session_id
+from cjm_fasthtml_interactions.core.state_store import get_session_id, set_session_id
 
 from cjm_fasthtml_virtual_collection.core.models import (
     VirtualCollectionConfig, VirtualCollectionState,
@@ -32,7 +31,6 @@ from cjm_fasthtml_workflow_session_management.components.page_renderer import (
     render_session_manager_page,
 )
 from .sessions import init_session_router
-from cjm_fasthtml_interactions.core.state_store import set_session_id
 
 # %% ../../nbs/routes/init.ipynb #48d84c00
 def init_session_manager_routers(
@@ -43,7 +41,6 @@ def init_session_manager_routers(
     get_step_title:Optional[Callable[[str], str]]=None, # Optional step ID -> human title mapper
     page_title:str="Sessions", # Page header title
     page_icon:str="layers", # Lucide icon for the page header
-    tab_entries:Optional[List[Tuple[str, str, str, str]]]=None, # Cross-management tab entries
 ) -> SessionManagementResult: # Assembled result with routers, urls, and render callables
     """Initialize all session management routers with virtual collection integration."""
     # --- URL bundle (populated after route registration) ---
@@ -151,8 +148,6 @@ def init_session_manager_routers(
             render_list_fn=_render_list,
             title=page_title,
             icon_name=page_icon,
-            tab_entries=tab_entries,
-            active_tab="sessions",
         )
     
     # --- Session router ---
