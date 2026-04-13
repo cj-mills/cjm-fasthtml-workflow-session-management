@@ -3,9 +3,28 @@ requires = ["setuptools>=64.0,<76.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name="cjm-fasthtml-workflow-session-management"
-requires-python=">=3.12"
-dynamic = [ "keywords", "description", "version", "dependencies", "optional-dependencies", "readme", "license", "authors", "classifiers", "entry-points", "scripts", "urls"]
+name = "cjm-fasthtml-workflow-session-management"
+dynamic = ["version"]
+description = "A workflow-agnostic FastHTML library for managing multiple in-progress workflow sessions with list, resume, create, delete, and rename sessions stored in a cjm-workflow-state state database."
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "Apache-2.0"}
+authors = [{name = "Christian J. Mills", email = "9126128+cj-mills@users.noreply.github.com"}]
+keywords = ['nbdev', 'jupyter', 'notebook', 'python']
+classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
+dependencies = ['python-fasthtml', 'cjm-fasthtml-app-core', 'cjm-fasthtml-daisyui', 'cjm-fasthtml-tailwind', 'cjm-fasthtml-lucide-icons', 'cjm-fasthtml-virtual-collection', 'cjm-fasthtml-keyboard-navigation', 'cjm-fasthtml-viewport-fit', 'cjm-workflow-state', 'cjm-fasthtml-interactions']
 
-[tool.uv]
-cache-keys = [{ file = "pyproject.toml" }, { file = "settings.ini" }, { file = "setup.py" }]
+[project.urls]
+Repository = "https://github.com/cj-mills/cjm-fasthtml-workflow-session-management"
+Documentation = "https://cj-mills.github.io/cjm-fasthtml-workflow-session-management"
+
+[project.entry-points.nbdev]
+cjm_fasthtml_workflow_session_management = "cjm_fasthtml_workflow_session_management._modidx:d"
+
+[tool.setuptools.dynamic]
+version = {attr = "cjm_fasthtml_workflow_session_management.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["cjm_fasthtml_workflow_session_management"]
+
+[tool.nbdev]
