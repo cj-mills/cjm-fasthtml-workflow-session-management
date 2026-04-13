@@ -52,7 +52,7 @@ def init_session_manager_routers(
     # --- Shared mutable state ---
     _items:List[Any] = []
     # Holds the current active session ID so the cell renderer can draw the "Active" badge
-    # without needing the request. Updated in _refresh_items from the latest HTTP session.
+    # without needing the request. Updated in _refresh_items from the request's HTTP session.
     _active_ref = {"id": ""}
     
     def _get_active_id() -> str:
@@ -96,13 +96,6 @@ def init_session_manager_routers(
             _items, vc_state, vc_config, vc_ids, render_cell,
             focus_url=vc_urls.focus_row, refit_callback=_refit,
         )
-    
-    # Request-less variant for contexts where we don't have one (tests, stubs).
-    def _refresh_items_noreq():
-        _refresh_items(request=None)
-    
-    def _refresh_items_oob_noreq():
-        return _refresh_items_oob(request=None)
     
     def _sort_callback(items_list, column_key, ascending):
         """Re-fetch sorted items from the service rather than sorting in place."""
@@ -151,13 +144,14 @@ def init_session_manager_routers(
         )
     
     # --- Session router ---
+    # Pass the request-accepting callbacks directly — route handlers forward `request`.
     sess_router, sess_routes = init_session_router(
         service=service,
         prefix=prefix,
         urls=urls,
         workflow_url=workflow_url,
-        refresh_items=_refresh_items_noreq,
-        refresh_items_oob=_refresh_items_oob_noreq,
+        refresh_items=_refresh_items,
+        refresh_items_oob=_refresh_items_oob,
         render_page=_render_page,
         render_list=_render_list,
     )
@@ -182,6 +176,6 @@ def init_session_manager_routers(
         routes=sess_routes,
         render_page=_render_page,
         render_list=_render_list,
-        refresh_items=_refresh_items_noreq,
+        refresh_items=_refresh_items,
         resume_session=_resume_session,
     )

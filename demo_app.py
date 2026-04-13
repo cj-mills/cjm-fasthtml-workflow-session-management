@@ -191,14 +191,10 @@ def main():
     @router
     async def index(request):
         """Homepage — loads the session manager page."""
-        # Priming the "active session" pointer from the HTTP session so the
-        # list can draw the Active badge on the right row. The refresh_items
-        # callback in the session router will do this on every mutation, but
-        # for the initial GET we wire it manually via the render pipeline.
-        sess = request.session
         # Ensure a session ID exists so the badge has something to highlight.
-        get_session_id(sess)
-        mgmt_result.refresh_items()
+        get_session_id(request.session)
+        # Pass request so the active session pointer is populated for badge rendering.
+        mgmt_result.refresh_items(request=request)
         return handle_htmx_request(request, mgmt_result.render_page)
 
     # -------------------------------------------------------------------------

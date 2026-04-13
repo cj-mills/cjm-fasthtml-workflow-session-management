@@ -41,19 +41,19 @@ graph LR
     services_management[services.management<br/>services.management]
     utils[utils<br/>utils]
 
+    components_page_renderer --> models
     components_page_renderer --> components_helpers
     components_page_renderer --> html_ids
-    components_page_renderer --> models
     components_session_list --> models
-    components_session_list --> components_helpers
     components_session_list --> utils
+    components_session_list --> components_helpers
     components_session_list --> html_ids
-    routes_init --> components_session_list
-    routes_init --> routes_sessions
-    routes_init --> services_management
     routes_init --> models
-    routes_init --> components_page_renderer
     routes_init --> html_ids
+    routes_init --> components_page_renderer
+    routes_init --> components_session_list
+    routes_init --> services_management
+    routes_init --> routes_sessions
     routes_sessions --> models
     routes_sessions --> services_management
     services_management --> models
@@ -522,8 +522,8 @@ def init_session_router(
     prefix:str, # Route prefix (e.g., "/manage/sessions")
     urls:SessionManagementUrls, # URL bundle (populated by caller after init)
     workflow_url:str, # Where to redirect after resume
-    refresh_items:Callable, # () -> reload items from service (sync)
-    refresh_items_oob:Callable, # () -> refresh + OOB tuple for HTMX response
+    refresh_items:Callable, # (request=None) -> reload items from service
+    refresh_items_oob:Callable, # (request=None) -> refresh + OOB tuple for HTMX response
     render_page:Callable, # () -> full session manager page
     render_list:Callable, # () -> session list component
 ) -> Tuple[APIRouter, Dict[str, Callable]]: # (router, routes dict)

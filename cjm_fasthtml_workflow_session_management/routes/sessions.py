@@ -25,8 +25,8 @@ def init_session_router(
     prefix:str, # Route prefix (e.g., "/manage/sessions")
     urls:SessionManagementUrls, # URL bundle (populated by caller after init)
     workflow_url:str, # Where to redirect after resume
-    refresh_items:Callable, # () -> reload items from service (sync)
-    refresh_items_oob:Callable, # () -> refresh + OOB tuple for HTMX response
+    refresh_items:Callable, # (request=None) -> reload items from service
+    refresh_items_oob:Callable, # (request=None) -> refresh + OOB tuple for HTMX response
     render_page:Callable, # () -> full session manager page
     render_list:Callable, # () -> session list component
 ) -> Tuple[APIRouter, Dict[str, Callable]]: # (router, routes dict)
@@ -39,7 +39,7 @@ def init_session_router(
         """Return the full session manager page."""
         if DEBUG_SESSION_ROUTES:
             print("[ROUTES] management_page called")
-        refresh_items()
+        refresh_items(request=request)
         return render_page()
     routes["management_page"] = management_page
     
@@ -48,7 +48,7 @@ def init_session_router(
         """Return just the session list fragment."""
         if DEBUG_SESSION_ROUTES:
             print("[ROUTES] list_sessions called")
-        refresh_items()
+        refresh_items(request=request)
         return render_list()
     routes["list_sessions"] = list_sessions
     
@@ -60,7 +60,7 @@ def init_session_router(
         set_session_id(sess, new_id)
         if DEBUG_SESSION_ROUTES:
             print(f"[ROUTES] create_session -> {new_id[:8]}...")
-        return refresh_items_oob()
+        return refresh_items_oob(request=request)
     routes["create_session"] = create_session
     
     @router.post
@@ -83,7 +83,7 @@ def init_session_router(
                     # No sessions left — mint a new empty one so the workflow has state to resume.
                     fresh_id = service.create_session()
                     set_session_id(sess, fresh_id)
-        return refresh_items_oob()
+        return refresh_items_oob(request=request)
     routes["delete_session"] = delete_session
     
     @router.post
@@ -96,7 +96,7 @@ def init_session_router(
             print(f"[ROUTES] rename_session: {session_id[:8] if session_id else '<none>'}... -> {label!r}")
         if session_id:
             service.rename_session(session_id, label)
-        return refresh_items_oob()
+        return refresh_items_oob(request=request)
     routes["rename_session"] = rename_session
     
     @router.post
