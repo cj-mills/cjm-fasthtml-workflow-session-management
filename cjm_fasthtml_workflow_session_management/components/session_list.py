@@ -34,6 +34,9 @@ from cjm_fasthtml_tailwind.core.base import combine_classes
 # Icons
 from cjm_fasthtml_lucide_icons.factory import lucide_icon
 
+# Design system recipes (V11 icon-size roles)
+from cjm_fasthtml_design_system.icons import icons
+
 # Virtual collection
 from cjm_fasthtml_virtual_collection.core.models import (
     VirtualCollectionConfig, VirtualCollectionState, ColumnDef, CellRenderContext,
@@ -192,7 +195,7 @@ def render_session_toolbar(
         ),
         # Right: New Session button
         Button(
-            lucide_icon("plus", size=4),
+            lucide_icon("plus", size=icons.text_button),
             "New Session",
             type="button",  # Prevent form-submit hijack inside any wrapping form.
             cls=combine_classes(
@@ -233,7 +236,7 @@ def render_rename_modal(
                     method="dialog",
                 ),
                 Button(
-                    lucide_icon("check", size=4),
+                    lucide_icon("check", size=icons.text_button),
                     "Rename",
                     type="button",  # Prevent form-submit hijack inside any wrapping form.
                     cls=combine_classes(

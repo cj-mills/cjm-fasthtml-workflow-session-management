@@ -35,6 +35,9 @@ from cjm_fasthtml_tailwind.core.base import combine_classes
 # Icons
 from cjm_fasthtml_lucide_icons.factory import lucide_icon
 
+# Design system recipes (V11 icon-size roles)
+from cjm_fasthtml_design_system.icons import icons
+
 # %% ../../nbs/components/helpers.ipynb #504a685b
 DEBUG_SESSION_RENDER = False # Enable for verbose component rendering logs
 
@@ -45,7 +48,7 @@ def render_section_header(
 ) -> Any: # Header element with icon and title
     """Render a section header with a leading lucide icon."""
     return H3(
-        lucide_icon(icon_name, size=5),
+        lucide_icon(icon_name, size=icons.section_header),
         title,
         cls=combine_classes(
             font_size.lg, font_weight.semibold,
@@ -71,7 +74,7 @@ def render_icon_button(
     if size: classes.append(size)
     kwargs.setdefault("type", "button")
     return Button(
-        lucide_icon(icon_name, size=4),
+        lucide_icon(icon_name, size=icons.icon_button),
         title=label,
         cls=combine_classes(*classes),
         **kwargs
@@ -111,7 +114,7 @@ def render_delete_modal(
                     method="dialog",
                 ),
                 Button(
-                    lucide_icon("trash-2", size=4),
+                    lucide_icon("trash-2", size=icons.text_button),
                     "Delete",
                     cls=combine_classes(
                         btn, btn_colors.error,
@@ -138,7 +141,7 @@ def render_empty_state(
 ) -> Any: # Empty state element
     """Render an empty state placeholder with an icon and two lines of copy."""
     return Div(
-        lucide_icon("inbox", size=12, cls=str(text_dui.base_content.opacity(30))),
+        lucide_icon("inbox", size=icons.empty_state, cls=str(text_dui.base_content.opacity(30))),
         P(message, cls=combine_classes(
             font_size.lg, font_weight.medium, m.t(4)
         )),
@@ -165,7 +168,7 @@ def render_active_session_badge(
     }
     if badge_id: kwargs["id"] = badge_id
     return Span(
-        lucide_icon("circle-dot", size=3),
+        lucide_icon("circle-dot", size=icons.dense_inline),
         label,
         **kwargs
     )

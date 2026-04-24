@@ -20,6 +20,9 @@ from cjm_fasthtml_tailwind.core.base import combine_classes
 
 from cjm_fasthtml_lucide_icons.factory import lucide_icon
 
+# Design system recipes (V11 icon-size roles)
+from cjm_fasthtml_design_system.icons import icons
+
 from ..models import SessionManagementUrls
 from ..html_ids import SessionManagerHtmlIds
 from .helpers import DEBUG_SESSION_RENDER
@@ -32,7 +35,7 @@ def render_page_header(
     """Render the page header with an icon + title."""
     return Div(
         H1(
-            lucide_icon(icon_name, size=7),
+            lucide_icon(icon_name, size=icons.page_title),
             title,
             cls=combine_classes(
                 font_size._3xl, font_weight.bold,
