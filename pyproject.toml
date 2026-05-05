@@ -25,6 +25,6 @@ cjm_fasthtml_workflow_session_management = "cjm_fasthtml_workflow_session_manage
 version = {attr = "cjm_fasthtml_workflow_session_management.__version__"}
 
 [tool.setuptools.packages.find]
-include = ["cjm_fasthtml_workflow_session_management"]
+include = ["cjm_fasthtml_workflow_session_management*"]
 
 [tool.nbdev]
