@@ -12,6 +12,9 @@ from typing import Any, Dict, List, Optional
 from fasthtml.common import Div, Span, H3, Button, Form, P, Dialog, Input
 
 # DaisyUI components
+# btn / btn_styles / btn_colors / btn_sizes still used by `render_icon_button`
+# (a row-action helper that pre-dates V1 and represents a V1 catalog gap for
+# row-action icon buttons). Other sites in this file use V1 buttons directly.
 from cjm_fasthtml_daisyui.components.actions.button import (
     btn, btn_colors, btn_styles, btn_sizes
 )
@@ -35,7 +38,8 @@ from cjm_fasthtml_tailwind.core.base import combine_classes
 # Icons
 from cjm_fasthtml_lucide_icons.factory import lucide_icon
 
-# Design system recipes (V11 icon-size roles)
+# Design system recipes (V1 button roles, V11 icon-size roles)
+from cjm_fasthtml_design_system.buttons import buttons
 from cjm_fasthtml_design_system.icons import icons
 
 # %% ../../nbs/components/helpers.ipynb #504a685b
@@ -110,14 +114,14 @@ def render_delete_modal(
             Div(id=body_id, cls=m.y(4)),
             Div(
                 Form(
-                    Button("Cancel", cls=str(btn), formmethod="dialog"),
+                    Button("Cancel", cls=buttons.soft_dismissal, formmethod="dialog"),
                     method="dialog",
                 ),
                 Button(
                     lucide_icon("trash-2", size=icons.text_button),
                     "Delete",
                     cls=combine_classes(
-                        btn, btn_colors.error,
+                        buttons.destructive_confirm,
                         flex_display, items.center, gap(1)
                     ),
                     **confirm_attrs,

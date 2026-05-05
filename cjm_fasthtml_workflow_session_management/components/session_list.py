@@ -12,8 +12,11 @@ from typing import Any, Callable, List, Optional
 from fasthtml.common import Div, Span, A, Button, Input, Label, Script, H3, Form, Dialog, P
 
 # DaisyUI components
+# btn_colors / btn_sizes still used as params passed to render_icon_button
+# (a row-action helper that pre-dates V1 and represents a V1 catalog gap for
+# row-action icon buttons). Other sites in this file use V1 buttons directly.
 from cjm_fasthtml_daisyui.components.actions.button import (
-    btn, btn_colors, btn_styles, btn_sizes
+    btn_colors, btn_sizes
 )
 from cjm_fasthtml_daisyui.components.data_input.text_input import text_input
 from cjm_fasthtml_daisyui.components.actions.modal import (
@@ -34,7 +37,8 @@ from cjm_fasthtml_tailwind.core.base import combine_classes
 # Icons
 from cjm_fasthtml_lucide_icons.factory import lucide_icon
 
-# Design system recipes (V11 icon-size roles)
+# Design system recipes (V1 button roles, V11 icon-size roles)
+from cjm_fasthtml_design_system.buttons import buttons
 from cjm_fasthtml_design_system.icons import icons
 
 # Virtual collection
@@ -199,7 +203,7 @@ def render_session_toolbar(
             "New Session",
             type="button",  # Prevent form-submit hijack inside any wrapping form.
             cls=combine_classes(
-                btn, btn_colors.primary, btn_sizes.sm,
+                buttons.primary_action,
                 flex_display, items.center, gap(1),
             ),
             id=SessionManagerHtmlIds.NEW_SESSION_BTN,
@@ -232,7 +236,7 @@ def render_rename_modal(
             ),
             Div(
                 Form(
-                    Button("Cancel", cls=str(btn), formmethod="dialog"),
+                    Button("Cancel", cls=buttons.soft_dismissal, formmethod="dialog"),
                     method="dialog",
                 ),
                 Button(
@@ -240,7 +244,7 @@ def render_rename_modal(
                     "Rename",
                     type="button",  # Prevent form-submit hijack inside any wrapping form.
                     cls=combine_classes(
-                        btn, btn_colors.primary,
+                        buttons.primary_action,
                         flex_display, items.center, gap(1),
                     ),
                     data_rename_confirm="true",
