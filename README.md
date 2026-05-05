@@ -41,21 +41,21 @@ graph LR
     services_management[services.management<br/>services.management]
     utils[utils<br/>utils]
 
-    components_page_renderer --> models
-    components_page_renderer --> components_helpers
     components_page_renderer --> html_ids
-    components_session_list --> models
-    components_session_list --> utils
+    components_page_renderer --> components_helpers
+    components_page_renderer --> models
     components_session_list --> components_helpers
     components_session_list --> html_ids
-    routes_init --> models
+    components_session_list --> models
+    components_session_list --> utils
     routes_init --> html_ids
-    routes_init --> components_page_renderer
-    routes_init --> components_session_list
-    routes_init --> services_management
+    routes_init --> models
     routes_init --> routes_sessions
-    routes_sessions --> models
+    routes_init --> components_session_list
+    routes_init --> components_page_renderer
+    routes_init --> services_management
     routes_sessions --> services_management
+    routes_sessions --> models
     services_management --> models
     services_management --> utils
 ```
@@ -83,7 +83,6 @@ from cjm_fasthtml_workflow_session_management.components.helpers import (
     render_section_header,
     render_icon_button,
     render_alert,
-    render_delete_modal,
     render_empty_state,
     render_active_session_badge
 )
@@ -122,16 +121,6 @@ def render_alert(
     alert_id:str="", # Optional HTML ID for the alert
 ) -> Any: # Alert element
     "Render a DaisyUI alert message."
-```
-
-``` python
-def render_delete_modal(
-    modal_id:str, # HTML ID for the dialog element
-    body_id:str, # HTML ID for the modal body (HTMX target for confirmation text)
-    title:str="Delete Session?", # Modal title text
-    confirm_attrs:Optional[Dict[str, Any]]=None, # Attributes for the confirm button (hx_post, etc.)
-) -> Any: # Dialog element
-    "Render a delete confirmation modal using HTML5 dialog with backdrop click-to-close."
 ```
 
 ``` python

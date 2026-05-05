@@ -41,6 +41,9 @@ from cjm_fasthtml_lucide_icons.factory import lucide_icon
 from cjm_fasthtml_design_system.buttons import buttons
 from cjm_fasthtml_design_system.icons import icons
 
+# App core: V12 confirm-modal recipe
+from cjm_fasthtml_app_core.components.confirm_modal import render_confirm_modal
+
 # Virtual collection
 from cjm_fasthtml_virtual_collection.core.models import (
     VirtualCollectionConfig, VirtualCollectionState, ColumnDef, CellRenderContext,
@@ -76,7 +79,7 @@ from cjm_fasthtml_workflow_session_management.models import (
 from ..html_ids import SessionManagerHtmlIds
 from ..utils import format_relative_time, format_bytes
 from cjm_fasthtml_workflow_session_management.components.helpers import (
-    render_icon_button, render_empty_state, render_delete_modal,
+    render_icon_button, render_empty_state,
     render_active_session_badge, DEBUG_SESSION_RENDER,
 )
 
@@ -326,10 +329,12 @@ def render_session_list(
             ),
             # Persistent scripts + modals so toolbar's New Session still works.
             render_list_scripts(mgmt_urls),
-            render_delete_modal(
+            render_confirm_modal(
                 modal_id=SessionManagerHtmlIds.DELETE_MODAL,
                 body_id=SessionManagerHtmlIds.DELETE_MODAL_BODY,
                 title="Delete Session?",
+                confirm_label="Delete",
+                confirm_icon="trash-2",
                 confirm_attrs={
                     "data_delete_confirm": "true",
                     "onclick": f"document.getElementById('{SessionManagerHtmlIds.DELETE_MODAL}').close()",
@@ -390,10 +395,12 @@ def render_session_list(
             ),
         ),
         Div(id=SessionManagerHtmlIds.ALERT_AREA),
-        render_delete_modal(
+        render_confirm_modal(
             modal_id=SessionManagerHtmlIds.DELETE_MODAL,
             body_id=SessionManagerHtmlIds.DELETE_MODAL_BODY,
             title="Delete Session?",
+            confirm_label="Delete",
+            confirm_icon="trash-2",
             confirm_attrs={
                 "data_delete_confirm": "true",
                 "onclick": f"document.getElementById('{SessionManagerHtmlIds.DELETE_MODAL}').close()",
