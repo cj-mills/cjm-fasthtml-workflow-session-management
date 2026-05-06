@@ -24,6 +24,8 @@ from cjm_fasthtml_daisyui.components.data_display.badge import (
 from cjm_fasthtml_daisyui.components.feedback.alert import alert, alert_colors
 from cjm_fasthtml_daisyui.utilities.semantic_colors import text_dui
 
+from cjm_fasthtml_design_system.text_tiers import text_tiers
+
 # Tailwind utilities
 from cjm_fasthtml_tailwind.utilities.spacing import p, m
 from cjm_fasthtml_tailwind.utilities.typography import font_size, font_weight, text_align
@@ -101,12 +103,12 @@ def render_empty_state(
 ) -> Any: # Empty state element
     """Render an empty state placeholder with an icon and two lines of copy."""
     return Div(
-        lucide_icon("inbox", size=icons.empty_state, cls=str(text_dui.base_content.opacity(30))),
+        lucide_icon("inbox", size=icons.empty_state, cls=text_tiers.subtle),
         P(message, cls=combine_classes(
             font_size.lg, font_weight.medium, m.t(4)
         )),
         P(detail, cls=combine_classes(
-            font_size.sm, text_dui.base_content.opacity(60)
+            font_size.sm, text_tiers.tertiary
         )),
         cls=combine_classes(
             flex_display, flex_direction.col, items.center, justify.center,

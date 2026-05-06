@@ -24,6 +24,8 @@ from cjm_fasthtml_daisyui.components.actions.modal import (
 )
 from cjm_fasthtml_daisyui.utilities.semantic_colors import text_dui
 
+from cjm_fasthtml_design_system.text_tiers import text_tiers
+
 # Tailwind utilities
 from cjm_fasthtml_tailwind.utilities.spacing import p, m
 from cjm_fasthtml_tailwind.utilities.sizing import w, min_h
@@ -198,7 +200,7 @@ def render_session_toolbar(
         # Left: session count
         Span(
             count_label,
-            cls=combine_classes(font_size.sm, text_dui.base_content.opacity(70)),
+            cls=combine_classes(font_size.sm, text_tiers.secondary),
         ),
         # Right: New Session button
         Button(
@@ -272,7 +274,7 @@ def render_list_scripts(
     urls:SessionManagementUrls, # URL bundle for action routes
 ) -> Any: # Script element
     """Render client-side JavaScript for delete and rename modal management."""
-    faded = combine_classes(font_size.sm, text_dui.base_content.opacity(60), m.t(2))
+    faded = combine_classes(font_size.sm, text_tiers.tertiary, m.t(2))
     return Script(f"""
     function prepareDeleteModal(sessionId, label) {{
         var body = document.getElementById('{SessionManagerHtmlIds.DELETE_MODAL_BODY}');
