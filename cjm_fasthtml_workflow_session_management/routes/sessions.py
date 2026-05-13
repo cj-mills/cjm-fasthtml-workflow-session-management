@@ -8,7 +8,7 @@ __all__ = ['DEBUG_SESSION_ROUTES', 'init_session_router']
 # %% ../../nbs/routes/sessions.ipynb #5559deaf
 from typing import Callable, Dict, Tuple
 
-from fasthtml.common import APIRouter
+from cjm_fasthtml_app_core.core.routing import APIRouter
 from starlette.responses import Response
 
 from cjm_fasthtml_interactions.core.state_store import set_session_id, get_session_id
