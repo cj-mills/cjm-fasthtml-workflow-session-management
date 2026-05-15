@@ -44,20 +44,20 @@ graph LR
     components_page_renderer --> html_ids
     components_page_renderer --> components_helpers
     components_page_renderer --> models
-    components_session_list --> components_helpers
     components_session_list --> html_ids
-    components_session_list --> models
     components_session_list --> utils
-    routes_init --> html_ids
-    routes_init --> models
+    components_session_list --> models
+    components_session_list --> components_helpers
     routes_init --> routes_sessions
+    routes_init --> html_ids
     routes_init --> components_session_list
     routes_init --> components_page_renderer
+    routes_init --> models
     routes_init --> services_management
-    routes_sessions --> services_management
     routes_sessions --> models
-    services_management --> models
+    routes_sessions --> services_management
     services_management --> utils
+    services_management --> models
 ```
 
 *17 cross-module dependencies detected*
@@ -83,7 +83,6 @@ from cjm_fasthtml_workflow_session_management.components.helpers import (
     render_section_header,
     render_icon_button,
     render_alert,
-    render_empty_state,
     render_active_session_badge
 )
 ```
@@ -121,14 +120,6 @@ def render_alert(
     alert_id:str="", # Optional HTML ID for the alert
 ) -> Any: # Alert element
     "Render a DaisyUI alert message."
-```
-
-``` python
-def render_empty_state(
-    message:str="No sessions found.", # Primary message
-    detail:str="Start a new session to begin a workflow.", # Secondary detail
-) -> Any: # Empty state element
-    "Render an empty state placeholder with an icon and two lines of copy."
 ```
 
 ``` python

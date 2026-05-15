@@ -43,8 +43,9 @@ from cjm_fasthtml_lucide_icons.factory import lucide_icon
 from cjm_fasthtml_design_system.buttons import buttons
 from cjm_fasthtml_design_system.icons import icons
 
-# App core: V12 confirm-modal recipe
+# App core: V12 confirm-modal recipe + V8 empty-state recipe
 from cjm_fasthtml_app_core.components.confirm_modal import render_confirm_modal
+from cjm_fasthtml_app_core.components.empty_state import render_empty_state
 
 # Virtual collection
 from cjm_fasthtml_virtual_collection.core.models import (
@@ -81,7 +82,7 @@ from cjm_fasthtml_workflow_session_management.models import (
 from ..html_ids import SessionManagerHtmlIds
 from ..utils import format_relative_time, format_bytes
 from cjm_fasthtml_workflow_session_management.components.helpers import (
-    render_icon_button, render_empty_state,
+    render_icon_button,
     render_active_session_badge, DEBUG_SESSION_RENDER,
 )
 
@@ -328,6 +329,7 @@ def render_session_list(
             render_empty_state(
                 message="No sessions found.",
                 detail="Click New Session to start your first workflow.",
+                icon_name="inbox",
             ),
             # Persistent scripts + modals so toolbar's New Session still works.
             render_list_scripts(mgmt_urls),
@@ -390,6 +392,7 @@ def render_session_list(
                 render_empty=lambda: render_empty_state(
                     message="No sessions found.",
                     detail="Click New Session to start your first workflow.",
+                    icon_name="inbox",
                 ),
             ),
             cls=combine_classes(

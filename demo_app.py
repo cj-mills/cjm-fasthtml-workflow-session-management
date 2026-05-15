@@ -13,8 +13,10 @@ from pathlib import Path
 from typing import Any, Dict
 
 from fasthtml.common import (
-    fast_app, APIRouter, Div, H1, P,
+    fast_app, Div, H1, P,
 )
+
+from cjm_fasthtml_app_core.core.routing import APIRouter
 
 # DaisyUI + theming
 from cjm_fasthtml_daisyui.core.resources import get_daisyui_headers
