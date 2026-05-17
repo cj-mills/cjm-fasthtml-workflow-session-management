@@ -12,7 +12,7 @@ license = {text = "Apache-2.0"}
 authors = [{name = "Christian J. Mills", email = "9126128+cj-mills@users.noreply.github.com"}]
 keywords = ['nbdev', 'jupyter', 'notebook', 'python']
 classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
-dependencies = ['python-fasthtml', 'cjm-fasthtml-app-core>=0.0.20', 'cjm-fasthtml-daisyui>=0.0.15', 'cjm-fasthtml-tailwind>=0.0.44', 'cjm-fasthtml-lucide-icons>=0.0.1', 'cjm-fasthtml-virtual-collection>=0.0.26', 'cjm-fasthtml-keyboard-navigation>=0.0.26', 'cjm-fasthtml-viewport-fit>=0.0.15', 'cjm-workflow-state>=0.0.3', 'cjm-fasthtml-interactions>=0.0.37', 'cjm_fasthtml_design_system>=0.0.12']
+dependencies = ['python-fasthtml', 'cjm-fasthtml-app-core>=0.0.21', 'cjm-fasthtml-daisyui>=0.0.15', 'cjm-fasthtml-tailwind>=0.0.44', 'cjm-fasthtml-lucide-icons>=0.0.1', 'cjm-fasthtml-virtual-collection>=0.0.27', 'cjm-fasthtml-keyboard-navigation>=0.0.27', 'cjm-fasthtml-viewport-fit>=0.0.16', 'cjm-workflow-state>=0.0.3', 'cjm-fasthtml-interactions>=0.0.38', 'cjm_fasthtml_design_system>=0.0.13']
 
 [project.urls]
 Repository = "https://github.com/cj-mills/cjm-fasthtml-workflow-session-management"
